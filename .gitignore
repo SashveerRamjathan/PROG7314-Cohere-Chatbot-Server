@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+# Embeddings cache (will be regenerated)
+embeddings/

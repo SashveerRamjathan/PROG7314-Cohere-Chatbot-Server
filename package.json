@@ -1,16 +1,21 @@
 {
   "name": "cohere-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "exorcist": "npx nodemon server.js"
+    "dev": "npx nodemon server.js",
+    "build": "echo 'Build complete'",
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": ["culinary", "ai", "chatbot", "cohere", "rag"],
+  "author": "SashveerRamjathan",
+  "license": "MIT",
+  "description": "AI-powered culinary assistant using RAG architecture with Cohere AI. Semantic search across comprehensive cooking knowledge base for expert recipe guidance, techniques, and food safety advice.",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "cohere-ai": "^7.17.1",
     "cors": "^2.8.5",

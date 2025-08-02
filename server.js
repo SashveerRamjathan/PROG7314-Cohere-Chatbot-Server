@@ -20,6 +20,7 @@ import express from "express"; // Web framework for Node.js
 import cors from "cors"; // Enable Cross-Origin Resource Sharing
 import { CohereClient } from "cohere-ai"; // Cohere AI SDK for embeddings and chat
 import fs from "fs/promises"; // File system operations with Promise support
+import path from "path"; // Path utilities for cross-platform compatibility
 
 // ============================================================================
 // SERVER SETUP AND CONFIGURATION
@@ -37,7 +38,11 @@ const cohere = new CohereClient({
 });
 
 // File path for storing pre-computed embeddings to avoid re-computation
-const EMBEDDINGS_FILE = "./embeddings/embeddings.json";
+const EMBEDDINGS_FILE = path.join(
+  process.cwd(),
+  "embeddings",
+  "embeddings.json"
+);
 
 // ============================================================================
 // VECTOR SIMILARITY FUNCTIONS
@@ -114,13 +119,13 @@ function getTopKDocuments(queryEmbedding, documents, k = 8) {
 async function loadDocuments() {
   // Define all JSON files containing culinary knowledge
   const files = [
-    "./documents/recipes.json", // Recipe instructions and ingredients
-    "./documents/techniques_Tips.json", // Cooking techniques and tips
-    "./documents/nutrition_Advice.json", // Nutrition advice and health info
-    "./documents/ingredient_Substitutions.json", // Ingredient substitutions
-    "./documents/food_Safety.json", // Food safety guidelines
-    "./documents/equipment_Usage.json", // Kitchen equipment usage
-    "./documents/cooking_Advice.json", // General cooking advice
+    path.join(process.cwd(), "documents", "recipes.json"), // Recipe instructions and ingredients
+    path.join(process.cwd(), "documents", "techniques_Tips.json"), // Cooking techniques and tips
+    path.join(process.cwd(), "documents", "nutrition_Advice.json"), // Nutrition advice and health info
+    path.join(process.cwd(), "documents", "ingredient_Substitutions.json"), // Ingredient substitutions
+    path.join(process.cwd(), "documents", "food_Safety.json"), // Food safety guidelines
+    path.join(process.cwd(), "documents", "equipment_Usage.json"), // Kitchen equipment usage
+    path.join(process.cwd(), "documents", "cooking_Advice.json"), // General cooking advice
   ];
 
   const documents = [];
@@ -223,8 +228,10 @@ async function embedDocumentsInBatches(documents, batchSize = 96) {
     // Collect embeddings from this batch
     allEmbeddings.push(...response.embeddings);
 
-    // Rate limiting: wait 10 seconds between batches to avoid API limits
-    await sleep(10000);
+    // Rate limiting: shorter wait for Vercel (reduced from 10 seconds)
+    if (i + batchSize < documents.length) {
+      await sleep(2000);
+    }
   }
 
   return allEmbeddings;
@@ -239,6 +246,10 @@ async function embedDocumentsInBatches(documents, batchSize = 96) {
  * @param {Object[]} documents - Documents with computed embeddings
  */
 async function saveEmbeddingsToFile(documents) {
+  // Ensure embeddings directory exists
+  const embeddingsDir = path.dirname(EMBEDDINGS_FILE);
+  await fs.mkdir(embeddingsDir, { recursive: true });
+
   // Structure data for JSON serialization
   const embeddingsData = documents.map((doc) => ({
     id: doc.id,
@@ -298,6 +309,7 @@ async function loadEmbeddingsFromFile() {
 
 // Global cache for documents with embeddings (loaded once at startup)
 let cachedDocuments = [];
+let isInitializing = false;
 
 /**
  * Initialize document embeddings system
@@ -309,39 +321,55 @@ let cachedDocuments = [];
  * 4. Cache documents in memory for fast retrieval
  */
 async function initializeDocuments() {
-  // First, try to load pre-computed embeddings
-  cachedDocuments = await loadEmbeddingsFromFile();
-
-  if (!cachedDocuments) {
-    // No existing embeddings found - need to compute them
-    console.log("Computing embeddings for the first time...");
-
-    // Load documents from JSON files
-    const documents = await loadDocuments();
-
-    console.log("Embedding documents...");
-    // Generate embeddings in batches
-    const allEmbeddings = await embedDocumentsInBatches(documents);
-
-    // Attach embeddings to document objects
-    allEmbeddings.forEach((embedding, i) => {
-      documents[i].embedding = embedding;
-    });
-
-    // Save embeddings to file for future use
-    await saveEmbeddingsToFile(documents);
-
-    // Cache documents in memory
-    cachedDocuments = documents;
-    console.log("Embeddings ready.");
-  } else {
-    console.log("Using cached embeddings from file.");
+  // Prevent multiple initialization attempts
+  if (isInitializing) {
+    while (isInitializing) {
+      await sleep(1000);
+    }
+    return cachedDocuments;
   }
-}
 
-// Initialize embeddings system when server starts
-// This ensures documents are ready before handling requests
-initializeDocuments();
+  if (cachedDocuments.length > 0) {
+    return cachedDocuments;
+  }
+
+  isInitializing = true;
+
+  try {
+    // First, try to load pre-computed embeddings
+    cachedDocuments = await loadEmbeddingsFromFile();
+
+    if (!cachedDocuments) {
+      // No existing embeddings found - need to compute them
+      console.log("Computing embeddings for the first time...");
+
+      // Load documents from JSON files
+      const documents = await loadDocuments();
+
+      console.log("Embedding documents...");
+      // Generate embeddings in batches
+      const allEmbeddings = await embedDocumentsInBatches(documents);
+
+      // Attach embeddings to document objects
+      allEmbeddings.forEach((embedding, i) => {
+        documents[i].embedding = embedding;
+      });
+
+      // Save embeddings to file for future use
+      await saveEmbeddingsToFile(documents);
+
+      // Cache documents in memory
+      cachedDocuments = documents;
+      console.log("Embeddings ready.");
+    } else {
+      console.log("Using cached embeddings from file.");
+    }
+  } finally {
+    isInitializing = false;
+  }
+
+  return cachedDocuments;
+}
 
 // ============================================================================
 // API ENDPOINTS
@@ -367,6 +395,9 @@ app.post("/prompt", async (req, res) => {
   try {
     console.log(`Processing user prompt: "${prompt.substring(0, 50)}..."`);
 
+    // Initialize documents if not already done
+    const documents = await initializeDocuments();
+
     // STEP 1: Convert user query to vector embedding
     const embedResponse = await cohere.embed({
       texts: [prompt],
@@ -377,7 +408,7 @@ app.post("/prompt", async (req, res) => {
     const queryEmbedding = embedResponse.embeddings[0];
 
     // STEP 2: Find most relevant documents using semantic similarity
-    const topDocuments = getTopKDocuments(queryEmbedding, cachedDocuments, 8);
+    const topDocuments = getTopKDocuments(queryEmbedding, documents, 8);
 
     // Log retrieval results for monitoring
     console.log(`Retrieved top ${topDocuments.length} documents.`);
@@ -469,25 +500,27 @@ app.get("/stats", (req, res) => {
 });
 
 // ============================================================================
-// SERVER STARTUP
+// VERCEL SERVERLESS EXPORT
 // ============================================================================
 
-/**
- * Start the Express server on port 5000
- *
- * The server initialization process:
- * 1. Start Express server
- * 2. Begin document loading/embedding (async)
- * 3. Server becomes ready to handle requests once embeddings are loaded
- */
-app.listen(5000, () => {
-  console.log("📚 Loading comprehensive culinary knowledge base...");
-  console.log("💡 Endpoints available:");
-  console.log("   POST /prompt  - Main chat interface");
-  console.log("   GET  /health  - Server health check");
-  console.log("   GET  /stats   - Knowledge base statistics");
-  console.log("🍳 CulinaryGPT Server listening on http://localhost:5000");
-});
+// For Vercel serverless deployment
+export default app;
+
+// ============================================================================
+// LOCAL DEVELOPMENT SERVER (only runs when not in Vercel)
+// ============================================================================
+
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log("📚 Loading comprehensive culinary knowledge base...");
+    console.log("💡 Endpoints available:");
+    console.log("   POST /prompt  - Main chat interface");
+    console.log("   GET  /health  - Server health check");
+    console.log("   GET  /stats   - Knowledge base statistics");
+    console.log(`🍳 CulinaryGPT Server listening on http://localhost:${PORT}`);
+  });
+}
 
 // ============================================================================
 // ARCHITECTURE NOTES
@@ -522,4 +555,10 @@ Performance Optimizations:
 - Cache embeddings to disk to avoid re-computation
 - Use cosine similarity for fast vector search
 - Limit context to top-K documents for response quality
+
+Vercel Optimizations:
+- Serverless function export for deployment
+- Reduced rate limiting delays
+- Path utilities for cross-platform compatibility
+- Initialization guards to prevent race conditions
 */
