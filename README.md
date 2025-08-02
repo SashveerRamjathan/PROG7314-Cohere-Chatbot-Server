@@ -386,12 +386,6 @@ curl -X POST http://localhost:5000/prompt \
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
 **Happy Cooking with AI! 🍳🤖**
 
 *"Where artificial intelligence meets culinary excellence!"* ✨
