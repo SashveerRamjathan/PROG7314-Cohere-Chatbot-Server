@@ -44,6 +44,12 @@ const EMBEDDINGS_FILE = path.join(
   "embeddings.json"
 );
 
+// Global variables for tracking server metrics
+let serverStartTime = new Date();
+let totalQueries = 0;
+let embeddingsComputedAt = null;
+let lastQueryTime = null;
+
 // ============================================================================
 // VECTOR SIMILARITY FUNCTIONS
 // ============================================================================
@@ -257,6 +263,7 @@ async function saveEmbeddingsToFile(documents) {
     snippet: doc.data.snippet,
     category: doc.data.category,
     embedding: doc.embedding, // Vector embedding array
+    computedAt: new Date().toISOString(), // Track when embeddings were computed
   }));
 
   // Write to file with pretty formatting
@@ -265,6 +272,9 @@ async function saveEmbeddingsToFile(documents) {
     JSON.stringify(embeddingsData, null, 2),
     "utf-8"
   );
+
+  // Update global tracking variable
+  embeddingsComputedAt = new Date();
   console.log(`Embeddings saved to ${EMBEDDINGS_FILE}`);
 }
 
@@ -281,6 +291,11 @@ async function loadEmbeddingsFromFile() {
     // Attempt to read existing embeddings file
     const content = await fs.readFile(EMBEDDINGS_FILE, "utf-8");
     const embeddingsData = JSON.parse(content);
+
+    // Set embeddings computed time from file data
+    if (embeddingsData.length > 0 && embeddingsData[0].computedAt) {
+      embeddingsComputedAt = new Date(embeddingsData[0].computedAt);
+    }
 
     console.log(
       `Loaded ${embeddingsData.length} embeddings from ${EMBEDDINGS_FILE}`
@@ -372,6 +387,87 @@ async function initializeDocuments() {
 }
 
 // ============================================================================
+// UTILITY FUNCTIONS FOR STATS
+// ============================================================================
+
+/**
+ * Calculate memory usage statistics
+ */
+function getMemoryStats() {
+  const memUsage = process.memoryUsage();
+  return {
+    rss: Math.round(memUsage.rss / 1024 / 1024), // Resident Set Size in MB
+    heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024), // Heap used in MB
+    heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024), // Total heap in MB
+    external: Math.round(memUsage.external / 1024 / 1024), // External memory in MB
+  };
+}
+
+/**
+ * Calculate uptime in human-readable format
+ */
+function getUptimeFormatted() {
+  const uptimeMs = Date.now() - serverStartTime.getTime();
+  const days = Math.floor(uptimeMs / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (uptimeMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor((uptimeMs % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((uptimeMs % (1000 * 60)) / 1000);
+
+  if (days > 0) return `${days}d ${hours}h ${minutes}m`;
+  if (hours > 0) return `${hours}h ${minutes}m ${seconds}s`;
+  if (minutes > 0) return `${minutes}m ${seconds}s`;
+  return `${seconds}s`;
+}
+
+/**
+ * Get detailed category statistics
+ */
+function getCategoryStats() {
+  const categoryStats = cachedDocuments.reduce((acc, doc) => {
+    const category = doc.data.category;
+    if (!acc[category]) {
+      acc[category] = {
+        count: 0,
+        percentage: 0,
+        avgTitleLength: 0,
+        avgSnippetLength: 0,
+        titleLengths: [],
+        snippetLengths: [],
+      };
+    }
+
+    acc[category].count++;
+    acc[category].titleLengths.push(doc.data.title.length);
+    acc[category].snippetLengths.push(doc.data.snippet.length);
+
+    return acc;
+  }, {});
+
+  // Calculate averages and percentages
+  const totalDocs = cachedDocuments.length;
+  Object.keys(categoryStats).forEach((category) => {
+    const stat = categoryStats[category];
+    stat.percentage = Math.round((stat.count / totalDocs) * 100);
+    stat.avgTitleLength = Math.round(
+      stat.titleLengths.reduce((sum, len) => sum + len, 0) /
+        stat.titleLengths.length
+    );
+    stat.avgSnippetLength = Math.round(
+      stat.snippetLengths.reduce((sum, len) => sum + len, 0) /
+        stat.snippetLengths.length
+    );
+
+    // Remove temporary arrays
+    delete stat.titleLengths;
+    delete stat.snippetLengths;
+  });
+
+  return categoryStats;
+}
+
+// ============================================================================
 // API ENDPOINTS
 // ============================================================================
 
@@ -394,6 +490,10 @@ app.post("/prompt", async (req, res) => {
 
   try {
     console.log(`Processing user prompt: "${prompt.substring(0, 50)}..."`);
+
+    // Update query tracking
+    totalQueries++;
+    lastQueryTime = new Date();
 
     // Initialize documents if not already done
     const documents = await initializeDocuments();
@@ -470,33 +570,249 @@ app.post("/prompt", async (req, res) => {
 });
 
 /**
- * Health check endpoint - returns server status and basic metrics
+ * Enhanced health check endpoint - returns comprehensive server status and metrics
  * Useful for monitoring, load balancers, and debugging
  */
-app.get("/health", (req, res) => {
-  res.json({
-    status: "healthy",
-    documentsLoaded: cachedDocuments.length, // Number of documents in memory
-    timestamp: new Date().toISOString(), // Current server time
-  });
+app.get("/health", async (req, res) => {
+  try {
+    // Get system information
+    const memoryStats = getMemoryStats();
+    const uptime = getUptimeFormatted();
+
+    // Calculate basic stats
+    const categoryCount = cachedDocuments.reduce((acc, doc) => {
+      acc[doc.data.category] = (acc[doc.data.category] || 0) + 1;
+      return acc;
+    }, {});
+
+    // Check if embeddings file exists
+    let embeddingsFileExists = false;
+    let embeddingsFileSize = 0;
+    try {
+      const stats = await fs.stat(EMBEDDINGS_FILE);
+      embeddingsFileExists = true;
+      embeddingsFileSize = Math.round(stats.size / 1024 / 1024); // Size in MB
+    } catch (err) {
+      // File doesn't exist
+    }
+
+    // Determine overall health status
+    const isHealthy = cachedDocuments.length > 0 && process.env.COHERE_API_KEY;
+
+    res.json({
+      // Basic health info
+      status: isHealthy ? "healthy" : "unhealthy",
+      timestamp: new Date().toISOString(),
+
+      // Server information
+      server: {
+        uptime: uptime,
+        startedAt: serverStartTime.toISOString(),
+        nodeVersion: process.version,
+        platform: process.platform,
+        environment: process.env.NODE_ENV || "development",
+      },
+
+      // Knowledge base status
+      knowledgeBase: {
+        documentsLoaded: cachedDocuments.length,
+        categoriesCount: Object.keys(categoryCount).length,
+        categories: Object.keys(categoryCount).sort(),
+        embeddingsReady: cachedDocuments.length > 0,
+        embeddingsComputedAt: embeddingsComputedAt?.toISOString() || null,
+        embeddingsFileExists: embeddingsFileExists,
+        embeddingsFileSize: `${embeddingsFileSize} MB`,
+      },
+
+      // API usage stats
+      usage: {
+        totalQueries: totalQueries,
+        lastQueryAt: lastQueryTime?.toISOString() || null,
+        queriesPerHour:
+          totalQueries > 0 && lastQueryTime
+            ? Math.round(
+                totalQueries /
+                  ((Date.now() - serverStartTime.getTime()) / (1000 * 60 * 60))
+              )
+            : 0,
+      },
+
+      // System resources
+      system: {
+        memory: memoryStats,
+        pid: process.pid,
+      },
+
+      // Configuration status
+      config: {
+        cohereApiConfigured: !!process.env.COHERE_API_KEY,
+        corsEnabled: true,
+        rateLimitingActive: true,
+      },
+    });
+  } catch (err) {
+    console.error("Health check error:", err);
+    res.status(500).json({
+      status: "error",
+      error: err.message,
+      timestamp: new Date().toISOString(),
+    });
+  }
 });
 
 /**
- * Statistics endpoint - returns detailed information about the knowledge base
- * Useful for administrators and debugging
+ * Enhanced statistics endpoint - returns detailed knowledge base analytics
+ * Useful for administrators, debugging, and content analysis
  */
-app.get("/stats", (req, res) => {
-  // Calculate document distribution by category
-  const categoryStats = cachedDocuments.reduce((acc, doc) => {
-    acc[doc.data.category] = (acc[doc.data.category] || 0) + 1;
-    return acc;
-  }, {});
+app.get("/stats", async (req, res) => {
+  try {
+    // Get detailed category statistics
+    const categoryStats = getCategoryStats();
+    const memoryStats = getMemoryStats();
 
-  res.json({
-    totalDocuments: cachedDocuments.length, // Total number of documents
-    categoriesCount: Object.keys(categoryStats).length, // Number of different categories
-    categoryBreakdown: categoryStats, // Documents per category
-  });
+    // Calculate content statistics
+    const allTitles = cachedDocuments.map((doc) => doc.data.title);
+    const allSnippets = cachedDocuments.map((doc) => doc.data.snippet);
+
+    const avgTitleLength = Math.round(
+      allTitles.reduce((sum, title) => sum + title.length, 0) / allTitles.length
+    );
+
+    const avgSnippetLength = Math.round(
+      allSnippets.reduce((sum, snippet) => sum + snippet.length, 0) /
+        allSnippets.length
+    );
+
+    // Find longest and shortest content
+    const longestTitle = allTitles.reduce((a, b) =>
+      a.length > b.length ? a : b
+    );
+    const shortestTitle = allTitles.reduce((a, b) =>
+      a.length < b.length ? a : b
+    );
+    const longestSnippet = allSnippets.reduce((a, b) =>
+      a.length > b.length ? a : b
+    );
+
+    // Calculate embedding statistics
+    let embeddingDimension = 0;
+    let avgEmbeddingMagnitude = 0;
+    if (cachedDocuments.length > 0 && cachedDocuments[0].embedding) {
+      embeddingDimension = cachedDocuments[0].embedding.length;
+
+      // Calculate average embedding magnitude across all documents
+      const magnitudes = cachedDocuments.map((doc) => {
+        if (doc.embedding) {
+          return Math.sqrt(
+            doc.embedding.reduce((sum, val) => sum + val * val, 0)
+          );
+        }
+        return 0;
+      });
+      avgEmbeddingMagnitude =
+        magnitudes.reduce((sum, mag) => sum + mag, 0) / magnitudes.length;
+    }
+
+    // Check embeddings file info
+    let embeddingsFileInfo = { exists: false };
+    try {
+      const stats = await fs.stat(EMBEDDINGS_FILE);
+      embeddingsFileInfo = {
+        exists: true,
+        size: stats.size,
+        sizeFormatted: `${Math.round(stats.size / 1024 / 1024)} MB`,
+        lastModified: stats.mtime.toISOString(),
+        created: stats.birthtime.toISOString(),
+      };
+    } catch (err) {
+      // File doesn't exist
+    }
+
+    res.json({
+      // Overview
+      overview: {
+        totalDocuments: cachedDocuments.length,
+        totalCategories: Object.keys(categoryStats).length,
+        dataLoadedAt: serverStartTime.toISOString(),
+        embeddingsComputedAt: embeddingsComputedAt?.toISOString() || null,
+        lastQueryAt: lastQueryTime?.toISOString() || null,
+        totalQueries: totalQueries,
+      },
+
+      // Detailed category breakdown
+      categories: categoryStats,
+
+      // Content analysis
+      content: {
+        averages: {
+          titleLength: avgTitleLength,
+          snippetLength: avgSnippetLength,
+        },
+        extremes: {
+          longestTitle: {
+            text:
+              longestTitle.substring(0, 100) +
+              (longestTitle.length > 100 ? "..." : ""),
+            length: longestTitle.length,
+          },
+          shortestTitle: {
+            text: shortestTitle,
+            length: shortestTitle.length,
+          },
+          longestSnippetLength: longestSnippet.length,
+        },
+        distribution: {
+          shortTitles: allTitles.filter((t) => t.length < 50).length,
+          mediumTitles: allTitles.filter(
+            (t) => t.length >= 50 && t.length < 100
+          ).length,
+          longTitles: allTitles.filter((t) => t.length >= 100).length,
+          shortSnippets: allSnippets.filter((s) => s.length < 200).length,
+          mediumSnippets: allSnippets.filter(
+            (s) => s.length >= 200 && s.length < 500
+          ).length,
+          longSnippets: allSnippets.filter((s) => s.length >= 500).length,
+        },
+      },
+
+      // Vector embedding information
+      embeddings: {
+        dimension: embeddingDimension,
+        averageMagnitude: Math.round(avgEmbeddingMagnitude * 1000) / 1000, // Round to 3 decimal places
+        model: "embed-multilingual-v3.0",
+        inputType: "search_document",
+        fileInfo: embeddingsFileInfo,
+      },
+
+      // Performance metrics
+      performance: {
+        memoryUsage: memoryStats,
+        queriesPerHour:
+          totalQueries > 0
+            ? Math.round(
+                totalQueries /
+                  ((Date.now() - serverStartTime.getTime()) / (1000 * 60 * 60))
+              )
+            : 0,
+        averageDocumentsPerQuery: 8, // Top-K value
+      },
+
+      // System information
+      system: {
+        nodeVersion: process.version,
+        platform: process.platform,
+        environment: process.env.NODE_ENV || "development",
+        serverUptime: getUptimeFormatted(),
+      },
+    });
+  } catch (err) {
+    console.error("Stats endpoint error:", err);
+    res.status(500).json({
+      error: "Failed to generate statistics",
+      message: err.message,
+      timestamp: new Date().toISOString(),
+    });
+  }
 });
 
 // ============================================================================
@@ -516,8 +832,8 @@ if (process.env.NODE_ENV !== "production") {
     console.log("📚 Loading comprehensive culinary knowledge base...");
     console.log("💡 Endpoints available:");
     console.log("   POST /prompt  - Main chat interface");
-    console.log("   GET  /health  - Server health check");
-    console.log("   GET  /stats   - Knowledge base statistics");
+    console.log("   GET  /health  - Enhanced server health check");
+    console.log("   GET  /stats   - Detailed knowledge base statistics");
     console.log(`🍳 CulinaryGPT Server listening on http://localhost:${PORT}`);
   });
 }
@@ -561,4 +877,10 @@ Vercel Optimizations:
 - Reduced rate limiting delays
 - Path utilities for cross-platform compatibility
 - Initialization guards to prevent race conditions
+
+Enhanced Monitoring:
+- Comprehensive health checks with system metrics
+- Detailed knowledge base statistics and analytics
+- Query tracking and performance monitoring
+- Memory usage and resource monitoring
 */
