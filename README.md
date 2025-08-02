@@ -10,16 +10,15 @@ A comprehensive culinary AI assistant powered by RAG (Retrieval-Augmented Genera
 - [✨ Features](#features)
 - [🏗️ Architecture](#architecture)
 - [⚡ Getting Started](#getting-started)
+- [🚀 Deployment](#deployment)
 - [🛠️ Tech Stack](#tech-stack)
 - [📁 Project Structure](#project-structure) 
 - [🔌 API Endpoints](#api-endpoints)
 - [🤓 Usage Examples](#usage-examples)
 - [👨‍🍳 Knowledge Base](#knowledge-base)
 - [🚀 Performance](#performance)
-- [👤 Author & Module Info](#author--module-info)
 - [👥 Contributing](#contributing)
 - [🙏 Acknowledgements](#acknowledgements)
-- [📄 License](#license)
 
 ---
 
@@ -33,6 +32,7 @@ A comprehensive culinary AI assistant powered by RAG (Retrieval-Augmented Genera
 - 📊 **Built-in Analytics:** Health checks and knowledge base statistics
 - 🌍 **Multilingual Support:** Powered by Cohere's multilingual embedding model
 - 🔄 **Batch Processing:** Efficient embedding generation with rate limiting
+- ☁️ **Cloud-Ready:** Optimized for Vercel serverless deployment
 
 ---
 
@@ -61,11 +61,11 @@ A comprehensive culinary AI assistant powered by RAG (Retrieval-Augmented Genera
 
 ### 🧰 Prerequisites
 
-- Node.js (v16 or newer)
+- Node.js (v18 or newer)
 - npm or yarn package manager
 - Cohere API key ([Get one here](https://cohere.ai))
 
-### 🏗️ Installation
+### 🏗️ Local Development
 
 1. **Clone the repository:**
    ```bash
@@ -84,9 +84,9 @@ A comprehensive culinary AI assistant powered by RAG (Retrieval-Augmented Genera
    echo "COHERE_API_KEY=your_cohere_api_key_here" > .env
    ```
 
-4. **Prepare knowledge base:**
+4. **Ensure knowledge base files exist:**
    ```bash
-   # Ensure documents directory exists with JSON files:
+   # Verify documents directory contains:
    # documents/recipes.json
    # documents/techniques_Tips.json
    # documents/nutrition_Advice.json
@@ -96,9 +96,9 @@ A comprehensive culinary AI assistant powered by RAG (Retrieval-Augmented Genera
    # documents/cooking_Advice.json
    ```
 
-5. **Start the server:**
+5. **Start the development server:**
    ```bash
-   node server.js
+   npm run dev
    ```
 
 6. **Verify it's running:**
@@ -108,17 +108,71 @@ A comprehensive culinary AI assistant powered by RAG (Retrieval-Augmented Genera
 
 ---
 
+## 🚀 Deployment
+
+### ☁️ Vercel Deployment (Recommended)
+
+**CulinaryGPT is optimized for Vercel serverless deployment:**
+
+1. **Prepare for deployment:**
+   ```bash
+   # Ensure embeddings/ is in .gitignore
+   echo "embeddings/" >> .gitignore
+   
+   # Commit your changes
+   git add .
+   git commit -m "Ready for Vercel deployment"
+   git push origin main
+   ```
+
+2. **Deploy to Vercel:**
+   - Go to [vercel.com](https://vercel.com) and import your GitHub repository
+   - **No build commands needed** - Vercel auto-detects everything!
+   - Set environment variables in Vercel dashboard:
+     ```
+     COHERE_API_KEY = your_cohere_api_key_here
+     NODE_ENV = production
+     ```
+
+3. **Your live endpoints:**
+   ```
+   https://your-project.vercel.app/prompt  - Main chat interface
+   https://your-project.vercel.app/health - Health check
+   https://your-project.vercel.app/stats  - Knowledge base statistics
+   ```
+
+### 🐳 Alternative Deployment Options
+
+**Docker:**
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+EXPOSE 5000
+CMD ["npm", "start"]
+```
+
+**Traditional Hosting:**
+- Set `PORT` environment variable
+- Ensure all document files are present
+- Run `npm start`
+
+---
+
 ## 🛠️ Tech Stack
 
-- **Runtime:** Node.js with ES6 modules
+- **Runtime:** Node.js v18+ with ES6 modules
 - **Language:** JavaScript
 - **AI Platform:** Cohere AI
   - **Embedding Model:** `embed-multilingual-v3.0`
   - **Chat Model:** `command-r-plus`
-- **Framework:** Express.js
+- **Framework:** Express.js v5.1.0
 - **Vector Search:** Cosine similarity
 - **Storage:** JSON files + cached embeddings
 - **Environment:** dotenv
+- **Deployment:** Vercel Serverless Functions
 
 ---
 
@@ -127,6 +181,7 @@ A comprehensive culinary AI assistant powered by RAG (Retrieval-Augmented Genera
 ```
 PROG7314-Cohere-Chatbot-Server/
 ├── server.js                    # Main server file with RAG implementation
+├── vercel.json                  # Vercel deployment configuration
 ├── documents/                   # Knowledge base JSON files
 │   ├── recipes.json            # Recipe instructions and ingredients
 │   ├── techniques_Tips.json    # Cooking techniques and tips
@@ -135,9 +190,10 @@ PROG7314-Cohere-Chatbot-Server/
 │   ├── food_Safety.json        # Food safety guidelines
 │   ├── equipment_Usage.json    # Kitchen equipment usage
 │   └── cooking_Advice.json     # General cooking advice
-├── embeddings/                  # Cached vector embeddings
-│   └── embeddings.json         # Pre-computed embeddings (auto-generated)
-├── .env                        # Environment variables (create this)
+├── embeddings/                  # Cached vector embeddings (auto-generated)
+│   └── embeddings.json         # Pre-computed embeddings
+├── .env                        # Environment variables (local development)
+├── .gitignore                  # Git ignore file
 ├── package.json               # Dependencies and scripts
 └── README.md                  # You are here! 📍
 ```
@@ -182,7 +238,7 @@ GET /health
 {
   "status": "healthy",
   "documentsLoaded": 1247,
-  "timestamp": "2025-08-02T14:53:20.123Z"
+  "timestamp": "2025-01-20T15:37:31.000Z"
 }
 ```
 
@@ -214,7 +270,7 @@ GET /stats
 
 ### Basic Cooking Question
 ```javascript
-const response = await fetch('http://localhost:5000/prompt', {
+const response = await fetch('https://your-project.vercel.app/prompt', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -229,7 +285,7 @@ console.log(`Used ${result.documentsUsed} documents from categories: ${result.ca
 
 ### Ingredient Substitution Query
 ```javascript
-const response = await fetch('http://localhost:5000/prompt', {
+const response = await fetch('https://your-project.vercel.app/prompt', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -246,7 +302,7 @@ const advice = await response.json();
 // Monitor server health in your application
 const healthCheck = async () => {
   try {
-    const response = await fetch('http://localhost:5000/health');
+    const response = await fetch('https://your-project.vercel.app/health');
     const status = await response.json();
     console.log(`Server healthy. ${status.documentsLoaded} documents loaded.`);
   } catch (error) {
@@ -310,26 +366,23 @@ CulinaryGPT's expertise spans **7 specialized categories**:
 ### ⚡ **Optimization Features:**
 - **Pre-computed Embeddings:** Documents are embedded once at startup, then cached
 - **Batch Processing:** Embeddings generated in batches of 96 to respect API limits
-- **Rate Limiting:** 10-second delays between batches to avoid API throttling
+- **Smart Rate Limiting:** 2-second delays optimized for serverless environments
 - **Memory Caching:** All embeddings stored in memory for instant retrieval
 - **Top-K Search:** Only retrieves most relevant documents (default: 8) for optimal context
+- **Initialization Guards:** Prevents race conditions in serverless environments
 
 ### 📊 **Performance Metrics:**
+
+**Local Development:**
 - **Cold Start:** ~2-5 minutes (first run while computing embeddings)
 - **Warm Start:** ~5-10 seconds (using cached embeddings)
 - **Query Response:** ~1-3 seconds (depending on complexity)
+
+**Vercel Deployment:**
+- **Cold Start:** ~10-30 seconds (serverless function initialization)
+- **Warm Queries:** ~1-2 seconds (cached function)
 - **Memory Usage:** ~50-200MB (varies with knowledge base size)
-
----
-
-## 👤 Author & Module Info
-
-- **Name:** Sashveer Lakhan Ramjathan  
-- **Student Number:** ST10361554  
-- **Module:** PROG7314  
-- **Project:** Cohere Chatbot Server - CulinaryGPT
-- **Architecture:** RAG (Retrieval-Augmented Generation)
-- **Date:** August 2025
+- **Function Timeout:** 60 seconds (configured for embedding operations)
 
 ---
 
@@ -347,11 +400,10 @@ cd PROG7314-Cohere-Chatbot-Server
 npm install
 
 # Set up your environment
-cp .env.example .env
-# Add your Cohere API key to .env
+echo "COHERE_API_KEY=your_api_key_here" > .env
 
-# Run the server
-node server.js
+# Run the development server
+npm run dev
 ```
 
 ### 📝 **Adding Knowledge:**
@@ -374,11 +426,21 @@ curl -X POST http://localhost:5000/prompt \
   -d '{"prompt": "How do I boil water?"}'
 ```
 
+### 🚀 **Deployment Testing:**
+```bash
+# Test your Vercel deployment
+curl https://your-project.vercel.app/health
+curl -X POST https://your-project.vercel.app/prompt \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "Tell me about food safety"}'
+```
+
 ---
 
 ## 🙏 Acknowledgements
 
 - 🤖 **Cohere AI** for providing powerful embedding and chat models
+- ☁️ **Vercel** for seamless serverless deployment platform
 - 📚 **Culinary experts** whose knowledge forms our comprehensive database
 - 🔬 **RAG Architecture** pioneers for the retrieval-augmented generation concept
 - 👨‍🍳 **Home cooks everywhere** who inspire us to make cooking accessible
@@ -399,14 +461,23 @@ curl -X POST http://localhost:5000/prompt \
 - Embedding dimension: 1024 (Cohere's embed-multilingual-v3.0)
 - Temperature setting: 0.3 for consistent, factual responses
 
-**Rate Limiting:**
+**Serverless Optimizations:**
+- Initialization guards prevent race conditions
+- Reduced rate limiting for faster cold starts
+- Cross-platform file path handling
+- Graceful degradation for missing embeddings
+
+**API Rate Limiting:**
 - Batch size: 96 documents per API call
-- Delay: 10 seconds between batches
-- Optimized for Cohere's API limits
+- Delay: 2 seconds between batches (optimized for Vercel)
+- Automatic retry logic for transient failures
 
 **Memory Management:**
 - Embeddings cached in memory for fast retrieval
 - JSON files loaded once at startup
 - Automatic embedding persistence to disk
+- Efficient garbage collection for large datasets
 
 ---
+
+**🚀 Ready to deploy to Vercel!** Simply push your code and deploy - no additional configuration needed!
