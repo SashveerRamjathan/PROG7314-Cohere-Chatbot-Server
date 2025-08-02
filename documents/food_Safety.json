@@ -1,0 +1,122 @@
+[
+  {
+    "prompt": "How long can cooked chicken be stored in the fridge?",
+    "response": "Cooked chicken can be safely stored in the refrigerator for 3 to 4 days in an airtight container."
+  },
+  {
+    "prompt": "How do I know if an egg is still fresh?",
+    "response": "Place the egg in a bowl of water. If it sinks and lays flat, it's fresh. If it stands upright or floats, it is best discarded."
+  },
+  {
+    "prompt": "What's the safe minimum temperature for cooking ground beef?",
+    "response": "Ground beef should be cooked to an internal temperature of 160°F (71°C) to ensure safety."
+  },
+  {
+    "prompt": "How long can I keep raw chicken in the refrigerator before cooking?",
+    "response": "Raw chicken should be used within 1-2 days when stored in the refrigerator at 40°F (4°C) or below. If the chicken has an off smell, slimy texture, or grayish color, discard it immediately. For longer storage, freeze raw chicken for up to 9 months for whole birds or 3-4 months for pieces."
+  },
+  {
+    "prompt": "What's the danger zone temperature range for food safety?",
+    "response": "The danger zone is between 40°F and 140°F (4°C to 60°C). Bacteria multiply rapidly in this temperature range, potentially doubling every 20 minutes. Food should not remain in the danger zone for more than 2 hours, or 1 hour if the ambient temperature is above 90°F (32°C)."
+  },
+  {
+    "prompt": "How do I safely thaw frozen meat?",
+    "response": "Safe thawing methods include: 1) Refrigerator thawing (slowest but safest - allow 24 hours per 4-5 pounds), 2) Cold water thawing (submerge in cold water, changing water every 30 minutes), 3) Microwave thawing (cook immediately after), or 4) Cook from frozen (increase cooking time by 50%). Never thaw at room temperature or in warm water."
+  },
+  {
+    "prompt": "What are the signs that dairy products have gone bad?",
+    "response": "Signs of spoiled dairy include: sour or off odors, curdled or chunky texture, mold growth, separation that doesn't remix when stirred, and sour taste. For milk, check the expiration date and smell - fresh milk has a clean, slightly sweet smell. Yogurt may develop watery separation but can still be safe if stirred and no mold is present."
+  },
+  {
+    "prompt": "How long can leftovers sit out before they become unsafe?",
+    "response": "Leftovers should not sit at room temperature for more than 2 hours (1 hour if room temperature exceeds 90°F/32°C). After this time, bacteria can multiply to dangerous levels. Refrigerate leftovers promptly in shallow containers to cool quickly, and consume within 3-4 days or freeze for longer storage."
+  },
+  {
+    "prompt": "What's the proper internal temperature for cooking different types of poultry?",
+    "response": "All poultry should reach 165°F (74°C) internal temperature: whole chickens and turkeys (check thickest part of thigh), chicken breasts, ground poultry, and stuffing inside poultry. Use a food thermometer inserted into the thickest part, avoiding bone. Let whole birds rest 3 minutes before carving to allow temperature to stabilize."
+  },
+  {
+    "prompt": "How should I store fresh produce to maximize safety and freshness?",
+    "response": "Store fruits and vegetables separately - many fruits produce ethylene gas that speeds ripening. Refrigerate cut produce within 2 hours. Wash hands and surfaces before handling produce. Don't wash produce until ready to eat (except leafy greens). Store potatoes and onions in cool, dark, well-ventilated areas - not together. Refrigerate berries and grapes immediately."
+  },
+  {
+    "prompt": "What are the safe internal temperatures for different cuts of pork?",
+    "response": "Fresh pork cuts (chops, roasts, tenderloin) should reach 145°F (63°C) followed by a 3-minute rest time. Ground pork should reach 160°F (71°C). Fresh ham requires 145°F (63°C) with 3-minute rest. Pre-cooked ham should be reheated to 140°F (60°C). Always use a food thermometer to verify temperature in the thickest part."
+  },
+  {
+    "prompt": "How can I tell if canned goods are safe to eat?",
+    "response": "Check for: dents along seams or rims, rust, swelling, leaking, or spurting liquid when opened. Avoid cans with deep dents, especially near seams. If the can hisses when opened, contents smell off, or food is foamy or moldy, discard immediately. Properly stored canned goods can last years past expiration dates, but quality may decline."
+  },
+  {
+    "prompt": "What's the safest way to reheat leftover food?",
+    "response": "Reheat leftovers to 165°F (74°C) throughout. Use a food thermometer to check temperature in several spots. Stir food while reheating to ensure even heating. For microwave reheating, cover food, stir halfway through, and let stand briefly before checking temperature. Bring soups, sauces, and gravies to a rolling boil. Only reheat what you'll eat - don't reheat multiple times."
+  },
+  {
+    "prompt": "How long can I keep fish and seafood in the refrigerator?",
+    "response": "Fresh fish and shellfish should be used within 1-2 days when stored at 40°F (4°C) or below. Store on ice or in the coldest part of the refrigerator. Signs of spoilage include strong fishy odor, slimy texture, cloudy or sunken eyes (whole fish), and gills that aren't bright red. Cooked seafood lasts 3-4 days refrigerated."
+  },
+  {
+    "prompt": "What are the risks of eating raw or undercooked eggs?",
+    "response": "Raw or undercooked eggs may contain Salmonella bacteria, causing foodborne illness with symptoms like diarrhea, fever, and vomiting. Higher-risk individuals include pregnant women, young children, elderly, and immunocompromised people. If using raw eggs in recipes, use pasteurized eggs. Cook eggs until both yolk and white are firm, or to 160°F (71°C) in dishes."
+  },
+  {
+    "prompt": "How should I properly wash fruits and vegetables?",
+    "response": "Wash all produce under clean, running water, even if peeling. Scrub firm produce with a clean brush. Don't use soap, detergent, or bleach. For leafy greens, separate leaves and rinse individually. Pat dry with clean towels or paper towels. Wash produce just before eating or cooking. Pre-washed items labeled 'ready-to-eat' don't need additional washing."
+  },
+  {
+    "prompt": "What's the shelf life of different cooking oils?",
+    "response": "Unopened oils: vegetable oil (2 years), olive oil (2-3 years), coconut oil (2-3 years). After opening: use within 6-12 months for best quality. Store in cool, dark places away from heat and light. Signs of rancidity include off odors, bitter taste, or thick consistency. Refrigerate nut oils and use within 3-6 months. Discard any oil that smells or tastes rancid."
+  },
+  {
+    "prompt": "How do I prevent cross-contamination in my kitchen?",
+    "response": "Use separate cutting boards for raw meat and other foods. Wash hands for 20 seconds with soap after handling raw meat. Clean and sanitize surfaces and utensils between uses. Store raw meat on bottom refrigerator shelf to prevent drips. Never place cooked food on plates that held raw meat without washing first. Use different utensils for raw and cooked foods."
+  },
+  {
+    "prompt": "What are the safe storage times for frozen foods?",
+    "response": "Frozen at 0°F (-18°C): ground meat (3-4 months), steaks/chops (4-12 months), whole poultry (12 months), poultry pieces (9 months), fish (6-12 months), cooked meals (2-6 months). While foods remain safe indefinitely when frozen, quality declines over time. Label with date and contents. Use oldest items first (first in, first out)."
+  },
+  {
+    "prompt": "How can I tell if ground meat has gone bad?",
+    "response": "Fresh ground meat should be bright red (beef) or pink (pork/poultry) with no off odors. Signs of spoilage: gray or brown color throughout, sour or ammonia-like smell, slimy or sticky texture, or any mold. Ground meat spoils faster than whole cuts due to more surface area exposed to bacteria. Use within 1-2 days of purchase or freeze immediately."
+  },
+  {
+    "prompt": "What's the proper way to store bread to prevent mold?",
+    "response": "Store bread in a cool, dry place in original packaging or bread box. For longer storage, freeze bread and thaw as needed. Refrigeration actually speeds staling but can prevent mold in humid climates. Check for mold regularly - if any mold appears, discard the entire loaf as mold roots can spread throughout. Don't store bread in plastic bags in warm, humid conditions."
+  },
+  {
+    "prompt": "How do I know if my refrigerator is at a safe temperature?",
+    "response": "Refrigerator should be at or below 40°F (4°C), freezer at 0°F (-18°C). Use an appliance thermometer to check - built-in dials aren't always accurate. Check temperatures regularly, especially during power outages or when door seals are compromised. If temperature rises above 40°F for more than 2 hours, perishable foods may be unsafe."
+  },
+  {
+    "prompt": "What should I do if I suspect food poisoning?",
+    "response": "Stay hydrated with clear fluids. Rest and avoid solid foods until symptoms subside. Seek medical attention if you experience: high fever (101.3°F+), blood in vomit or stool, signs of dehydration, diarrhea lasting more than 3 days, or severe abdominal pain. Keep record of what you ate and when symptoms started. Report suspected foodborne illness to local health authorities."
+  },
+  {
+    "prompt": "How long can I safely marinate meat?",
+    "response": "Always marinate in the refrigerator, never at room temperature. Poultry and seafood: maximum 2 days. Beef, pork, and lamb: up to 5 days. Don't reuse marinade that touched raw meat unless you boil it first for at least 1 minute. Use glass, stainless steel, or food-grade plastic containers - never aluminum with acidic marinades. Discard leftover marinade."
+  },
+  {
+    "prompt": "What are the signs that honey has gone bad?",
+    "response": "Pure honey rarely spoils due to its natural antimicrobial properties and can last indefinitely when stored properly. However, check for: crystallization (normal, can be reversed by gentle heating), fermentation (bubbling, alcohol smell), or mold (usually from moisture contamination). Store in airtight containers away from moisture. Crystallized honey is still safe - just heat gently to reliquefy."
+  },
+  {
+    "prompt": "How should I handle and store raw shellfish?",
+    "response": "Buy from reputable sources and keep cold. Live shellfish (mussels, clams, oysters) should be alive when purchased - shells should close when tapped. Store live shellfish in breathable containers, not sealed plastic. Use within 1-2 days. Discard any with broken shells or that don't close when tapped. Shrimp and crab should smell like ocean, not fishy. Cook thoroughly to 145°F (63°C)."
+  },
+  {
+    "prompt": "What's the difference between 'sell by,' 'use by,' and 'best by' dates?",
+    "response": "'Sell by' tells stores when to rotate stock - food is usually safe for several days after. 'Use by' indicates peak quality, not safety (except for infant formula). 'Best by' is about quality, not safety. Many foods are safe past these dates if stored properly. Use your senses - look, smell, and taste (if safe to do so) to determine if food is still good."
+  },
+  {
+    "prompt": "How do I safely prepare raw sprouts?",
+    "response": "Raw sprouts carry higher risk of foodborne illness due to warm, humid growing conditions. Rinse thoroughly under running water before eating. People at higher risk (pregnant women, young children, elderly, immunocompromised) should avoid raw sprouts entirely. Cook sprouts thoroughly to reduce risk. Buy from reputable sources, refrigerate immediately, and use within 2 days of purchase."
+  },
+  {
+    "prompt": "What's the safest way to cool large batches of hot food?",
+    "response": "Cool food from 140°F to 70°F (60°C to 21°C) within 2 hours, then to 40°F (4°C) within 4 more hours total. Divide large batches into smaller, shallow containers (no more than 2-3 inches deep). Use ice baths, cooling paddles, or blast chillers for faster cooling. Don't put very hot food directly in refrigerator as it raises overall temperature and risks other foods."
+  },
+  {
+    "prompt": "How can I tell if nuts have gone rancid?",
+    "response": "Fresh nuts should smell pleasant and nutty. Rancid nuts smell sharp, bitter, or paint-like and taste sour or bitter. Visual signs include darkened color or oily appearance. Store nuts in airtight containers in cool, dry places. Refrigerate shelled nuts to extend life, freeze for longest storage. Properly stored nuts last: in shell (1 year), shelled (6 months room temperature, 1 year refrigerated)."
+  }
+]

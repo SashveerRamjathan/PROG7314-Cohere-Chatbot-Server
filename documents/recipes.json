@@ -1,0 +1,122 @@
+[
+  {
+    "prompt": "How do I make classic pancakes?",
+    "response": "To make classic pancakes, sift 1 cup flour, 2 tbsp sugar, 2 tsp baking powder, and a pinch of salt. In another bowl, whisk 1 cup milk, 1 egg, and 2 tbsp melted butter. Combine wet and dry ingredients, mixing until just combined. Heat a non-stick griddle over medium heat, lightly grease, and pour 1/4 cup batter per pancake. Cook until bubbles form, flip, and cook another minute. For fluffier pancakes, let the batter rest for 10 minutes before cooking. Serve with syrup or berries."
+  },
+  {
+    "prompt": "What is a good vegetarian lasagna recipe?",
+    "response": "Sauté 1 chopped onion, 2 minced garlic cloves, and 2 cups chopped spinach in olive oil. In a bowl, mix 2 cups ricotta cheese, 1 egg, salt, and pepper. Layer cooked lasagna noodles, marinara sauce, ricotta mixture, sautéed veggies, and shredded mozzarella in a baking dish. Repeat layers, finish with mozzarella and Parmesan. Bake at 375°F (190°C) for 45 minutes covered, then 10 minutes uncovered. Let stand before slicing."
+  },
+  {
+    "prompt": "How do I make spaghetti carbonara?",
+    "response": "Cook 400g spaghetti in salted water. Fry 100g pancetta or bacon until crisp. In a bowl, beat 2 eggs with 50g grated Parmesan and some black pepper. Drain pasta, reserving 1/2 cup water. Toss pasta with pancetta, remove from heat, and quickly stir in egg mixture, adding pasta water as needed to create a creamy sauce."
+  },
+  {
+    "prompt": "Give me a recipe for chicken tikka masala.",
+    "response": "Marinate 500g chicken breast in 1 cup yogurt, juice of 1 lemon, 2 cloves garlic, 1 tbsp grated ginger, and 2 tbsp tikka spice for 1 hour. Grill or broil until cooked. For the sauce, sauté 1 onion, 2 garlic cloves, and 1 tbsp ginger. Add 1 tbsp garam masala, 1 tsp cumin, and 1 tsp paprika. Stir in 1 can tomato puree and 1 cup cream, simmer, then add cooked chicken. Serve with rice and coriander."
+  },
+  {
+    "prompt": "How do I make guacamole?",
+    "response": "Mash 2 ripe avocados. Add 1 diced tomato, 1/4 cup chopped onion, 1 minced garlic clove, juice of 1 lime, salt, pepper, and chopped cilantro. For spiciness, add minced jalapeño. Serve immediately with tortilla chips or as a taco topping."
+  },
+  {
+    "prompt": "Share a recipe for homemade pizza dough.",
+    "response": "Mix 2 cups bread flour, 1 tsp salt, 1 tsp sugar, and 2 tsp instant yeast. Add 1 cup warm water and 1 tbsp olive oil. Knead for 8 minutes until smooth. Cover and let rise for 1 hour. Roll out and top as desired. Bake at 475°F (245°C) for 12-15 minutes."
+  },
+  {
+    "prompt": "How do I make French omelette?",
+    "response": "Beat 3 eggs with a pinch of salt and pepper. Heat 1 tbsp butter in a nonstick pan over medium-low. Pour eggs in, stir with a spatula, shaking pan until just set. Tilt pan to roll omelette, then slide onto a plate. Optionally, add cheese or herbs before folding."
+  },
+  {
+    "prompt": "Recipe for classic chocolate chip cookies?",
+    "response": "Cream 1 cup butter, 1 cup sugar, and 1 cup brown sugar. Add 2 eggs and 2 tsp vanilla. Mix in 3 cups flour, 1 tsp baking soda, 1/2 tsp salt, and 2 cups chocolate chips. Drop spoonfuls on baking sheet. Bake at 350°F (175°C) for 10–12 minutes. For chewy cookies, slightly underbake."
+  },
+  {
+    "prompt": "What do I need for Caprese salad?",
+    "response": "Slice fresh mozzarella and ripe tomatoes. Layer with basil leaves. Drizzle with olive oil and balsamic vinegar, sprinkle with salt and pepper. For variation, add arugula or a pinch of oregano."
+  },
+  {
+    "prompt": "How do I make banana bread?",
+    "response": "Mash 3 ripe bananas. Mix in 1/3 cup melted butter, 1/2 cup sugar, 1 egg, and 1 tsp vanilla. Stir in 1 tsp baking soda, pinch of salt, and 1.5 cups flour. Pour into greased loaf pan. Bake at 350°F (175°C) for 50–60 minutes. Add walnuts or chocolate chips for extra flavor."
+  },
+  {
+    "prompt": "How do I make vegan chocolate chip cookies?",
+    "response": "Mix 1/2 cup coconut oil, 1/2 cup brown sugar, 1/4 cup almond milk, 1 tsp vanilla. Add 1.5 cups flour, 1/2 tsp baking soda, 1/4 tsp salt, 1/2 cup vegan chocolate chips. Bake at 350°F (175°C) for 10-12 minutes."
+  },
+  {
+    "prompt": "What's a gluten-free bread recipe?",
+    "response": "Mix 2 cups gluten-free flour blend, 1 tbsp sugar, 1 tsp salt, 1 tbsp yeast, 1 1/4 cups warm water, 2 tbsp olive oil, and 2 eggs. Pour into loaf pan, let rise 30-45 minutes. Bake at 375°F (190°C) for 35-40 minutes. Add seeds for texture."
+  },
+  {
+    "prompt": "How can I substitute eggs in baking?",
+    "response": "Use 1/4 cup applesauce, 1/4 cup mashed banana, or 1 tbsp ground flaxseed + 3 tbsp water per egg. For leavening, try 2 tbsp water + 1 tbsp oil + 2 tsp baking powder. Results vary by recipe."
+  },
+  {
+    "prompt": "How do I cook pasta al dente?",
+    "response": "Boil water with salt. Add pasta, stir, and check 2 minutes before package time. Bite a noodle; it should be firm with a slight chew. Drain and serve immediately."
+  },
+  {
+    "prompt": "Can you suggest a keto-friendly dinner?",
+    "response": "Try grilled salmon with lemon butter, served with steamed broccoli and cauliflower mash. For the mash, boil cauliflower, drain, and blend with cream and butter. Add a salad with olive oil dressing for healthy fats."
+  },
+  {
+    "prompt": "How do I make a simple tomato soup?",
+    "response": "Sauté onion and garlic in olive oil. Add 4 cups chopped tomatoes, 2 cups veg broth, salt, and pepper. Simmer 20 min, blend until smooth, reheat, and finish with cream or coconut milk. Serve with basil and croutons."
+  },
+  {
+    "prompt": "What should I do if my cake is too dry?",
+    "response": "Brush cake with simple syrup or serve with whipped cream or custard. Next time, avoid overbaking and measure flour by spooning and leveling."
+  },
+  {
+    "prompt": "How do I make risotto?",
+    "response": "Sauté 1 onion in 2 tbsp butter, add 1.5 cups Arborio rice, toast 2 min. Add 1/2 cup white wine, stir until absorbed. Gradually add 4 cups hot broth, stirring constantly. Finish with 1/2 cup Parmesan and butter."
+  },
+  {
+    "prompt": "What's the best way to store fresh herbs?",
+    "response": "For leafy herbs, trim stems and put in a jar with water, cover loosely, refrigerate. For woody herbs, wrap in damp paper towel, seal in bag. Change water daily for longer life."
+  },
+  {
+    "prompt": "How do I make overnight oats?",
+    "response": "In a jar, combine 1/2 cup oats, 1/2 cup milk, 1/4 cup yogurt, 1 tbsp chia seeds, 1 tsp honey, and fruit. Stir, cover, refrigerate overnight. Stir and top with nuts or more fruit in the morning."
+  },
+  {
+    "prompt": "How do I make hummus?",
+    "response": "Blend 1 can chickpeas, 1/4 cup tahini, 2 tbsp olive oil, juice of 1 lemon, 1 garlic clove, and 1/2 tsp salt. Add 2-4 tbsp cold water for smoothness. Garnish with paprika and olive oil."
+  },
+  {
+    "prompt": "What's a good vegan Alfredo sauce?",
+    "response": "Sauté 2 garlic cloves in olive oil. Add 1.5 cups plant milk, 1/2 cup blended cashews, 2 tbsp nutritional yeast, 1 tbsp lemon juice, salt, and pepper. Simmer, blend until smooth, toss with cooked pasta."
+  },
+  {
+    "prompt": "How do I make French onion soup?",
+    "response": "Slice 4 onions, cook in 3 tbsp butter on low for 30-40 min until caramelized. Add garlic, deglaze with 1/2 cup white wine, add 4 cups beef broth, thyme, and bay leaf. Simmer 20 min. Serve with toasted baguette and Gruyère."
+  },
+  {
+    "prompt": "How do I thicken a soup?",
+    "response": "Blend part of the soup and stir back in, add cornstarch slurry, or simmer uncovered to reduce. For creamy soups, add a roux (flour and butter cooked together)."
+  },
+  {
+    "prompt": "How do I make lemon bars?",
+    "response": "Mix 1 cup flour, 1/4 cup powdered sugar, 1/2 cup butter for crust. Bake at 350°F (175°C) for 18 min. Whisk 1 cup sugar, 2 eggs, 2 tbsp flour, 1/2 tsp baking powder, juice and zest of 1 lemon. Pour over crust, bake 20-25 min. Cool and dust with powdered sugar."
+  },
+  {
+    "prompt": "How do I make a vinaigrette?",
+    "response": "Whisk 3 tbsp olive oil, 1 tbsp vinegar, 1 tsp Dijon, 1/2 tsp honey, salt, and pepper. Add minced garlic or herbs for flavor. Shake in a jar for easy emulsification."
+  },
+  {
+    "prompt": "How do I make mashed potatoes creamy?",
+    "response": "Boil peeled potatoes until tender. Drain and mash with warm milk, butter, salt, and pepper. For extra creaminess, use a ricer and fold in sour cream."
+  },
+  {
+    "prompt": "What's a good recipe for stuffed bell peppers?",
+    "response": "Cut tops off 4 bell peppers, remove seeds. Cook 1/2 lb ground beef with onion and garlic. Mix with 1 cup cooked rice, 1 cup tomato sauce, Italian herbs, salt, and pepper. Stuff peppers, top with cheese, bake at 375°F (190°C) for 30-35 min."
+  },
+  {
+    "prompt": "How do I separate egg yolks from whites?",
+    "response": "Crack the egg, open over a bowl, and pass the yolk between shell halves, letting the white fall away. You can also use clean hands to hold the yolk and let white slip through your fingers."
+  },
+  {
+    "prompt": "What are common baking mistakes and how to avoid them?",
+    "response": "Common mistakes: inaccurate measuring, overmixing, overbaking, not preheating oven. Always measure ingredients properly, mix until just combined, use an oven thermometer, and check for doneness early."
+  }
+]

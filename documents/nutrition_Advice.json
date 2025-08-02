@@ -1,0 +1,126 @@
+[
+  {
+    "prompt": "How much protein should I eat per day?",
+    "response": "General guidelines suggest 0.8 grams of protein per kilogram of body weight per day, but needs vary based on age, activity, and goals. Consult a dietitian for personalized advice."
+  },
+  {
+    "prompt": "Are carbs bad for weight loss?",
+    "response": "Carbohydrates are not inherently bad for weight loss. Focus on whole grains, fruits, and vegetables, and balance your calorie intake for optimal results."
+  },
+  {
+    "prompt": "What are healthy snacks for diabetics?",
+    "response": "Good snacks include raw vegetables, unsweetened yogurt, nuts, hard-boiled eggs, and whole-grain crackers. Always check with a healthcare provider for individual recommendations."
+  },
+  {
+    "prompt": "How many calories should I eat per day to lose weight?",
+    "response": "Weight loss typically requires a caloric deficit of 500-750 calories per day from your maintenance level. Most adults need 1,200-1,800 calories for healthy weight loss, but individual needs vary based on age, gender, height, weight, and activity level. Consult a healthcare professional for personalized guidance."
+  },
+  {
+    "prompt": "What's the difference between saturated and unsaturated fats?",
+    "response": "Saturated fats are solid at room temperature and found in animal products and some plant oils. Unsaturated fats are liquid at room temperature and found in nuts, seeds, and fish. Focus on unsaturated fats while limiting saturated fats to less than 10% of daily calories for heart health."
+  },
+  {
+    "prompt": "How much water should I drink daily?",
+    "response": "The general recommendation is about 8 glasses (64 ounces) of water per day, but needs vary based on activity level, climate, and overall health. Listen to your body's thirst cues and aim for pale yellow urine as an indicator of adequate hydration."
+  },
+  {
+    "prompt": "What are the best sources of fiber?",
+    "response": "Excellent fiber sources include whole grains, legumes, fruits with skin, vegetables, nuts, and seeds. Aim for 25-35 grams of fiber daily, increasing gradually to avoid digestive discomfort. Both soluble and insoluble fiber are important for digestive health."
+  },
+  {
+    "prompt": "Is intermittent fasting safe for everyone?",
+    "response": "Intermittent fasting can be beneficial for some people but isn't suitable for everyone. It's not recommended for pregnant or breastfeeding women, people with eating disorders, diabetes (without medical supervision), or certain medical conditions. Always consult a healthcare provider before starting."
+  },
+  {
+    "prompt": "What vitamins should I take as supplements?",
+    "response": "Most people can get necessary vitamins from a balanced diet. However, vitamin D, B12 (especially for vegans), and folate (for pregnant women) are commonly recommended supplements. Blood tests can identify specific deficiencies. Consult a healthcare provider before starting any supplement regimen."
+  },
+  {
+    "prompt": "How can I reduce my sodium intake?",
+    "response": "Reduce sodium by cooking at home, reading nutrition labels, choosing fresh over processed foods, using herbs and spices instead of salt, and gradually reducing salt to allow taste buds to adjust. Aim for less than 2,300mg per day, ideally closer to 1,500mg."
+  },
+  {
+    "prompt": "What are the signs of dehydration?",
+    "response": "Common signs include thirst, dry mouth, dark yellow urine, fatigue, dizziness, and decreased urination. Severe dehydration can cause rapid heartbeat, sunken eyes, and confusion. If experiencing severe symptoms, seek medical attention immediately."
+  },
+  {
+    "prompt": "Can I eat eggs every day?",
+    "response": "For most healthy individuals, eating one egg daily is generally safe and nutritious. Eggs provide high-quality protein, vitamins, and minerals. However, people with heart disease or high cholesterol should consult their healthcare provider about appropriate egg consumption."
+  },
+  {
+    "prompt": "What's the Mediterranean diet?",
+    "response": "The Mediterranean diet emphasizes fruits, vegetables, whole grains, legumes, nuts, olive oil, and fish, with moderate wine consumption and limited red meat and processed foods. It's associated with reduced risk of heart disease, certain cancers, and cognitive decline."
+  },
+  {
+    "prompt": "How much sugar is too much?",
+    "response": "The American Heart Association recommends limiting added sugars to no more than 6 teaspoons (25g) daily for women and 9 teaspoons (38g) for men. This doesn't include natural sugars from whole fruits, which come with beneficial fiber and nutrients."
+  },
+  {
+    "prompt": "What are probiotics and do I need them?",
+    "response": "Probiotics are beneficial bacteria that support gut health. They're found in fermented foods like yogurt, kefir, sauerkraut, and kimchi. While beneficial for many people, most healthy individuals can maintain good gut bacteria through a varied diet rich in fiber and fermented foods."
+  },
+  {
+    "prompt": "Is it better to eat small frequent meals or fewer large meals?",
+    "response": "Both approaches can be healthy depending on individual preferences and lifestyle. Some people do better with 3 larger meals, while others prefer 5-6 smaller meals. The key is maintaining consistent energy levels and not overeating. Choose what works best for your schedule and hunger patterns."
+  },
+  {
+    "prompt": "What foods boost metabolism?",
+    "response": "While no food dramatically boosts metabolism, protein-rich foods, green tea, spicy foods (capsaicin), and foods rich in iron and zinc may have small thermogenic effects. Regular exercise, adequate sleep, and staying hydrated have more significant impacts on metabolic rate."
+  },
+  {
+    "prompt": "How do I know if I'm getting enough iron?",
+    "response": "Signs of iron deficiency include fatigue, weakness, pale skin, cold hands and feet, brittle nails, and unusual cravings for ice or starch. Good iron sources include lean meat, poultry, fish, beans, spinach, and fortified cereals. Vitamin C enhances iron absorption."
+  },
+  {
+    "prompt": "What's the difference between food allergies and intolerances?",
+    "response": "Food allergies involve the immune system and can cause severe reactions like anaphylaxis. Food intolerances are digestive issues that cause discomfort but aren't life-threatening. Common intolerances include lactose and gluten sensitivity. If you suspect either, consult a healthcare provider for proper testing."
+  },
+  {
+    "prompt": "Should I avoid gluten if I don't have celiac disease?",
+    "response": "Unless you have celiac disease or non-celiac gluten sensitivity, there's no health benefit to avoiding gluten. Whole grains containing gluten provide important nutrients and fiber. If you suspect gluten sensitivity, consult a healthcare provider before eliminating it from your diet."
+  },
+  {
+    "prompt": "What are antioxidants and why are they important?",
+    "response": "Antioxidants are compounds that protect cells from damage caused by free radicals. They're found in colorful fruits and vegetables, nuts, seeds, and green tea. A diet rich in antioxidants may help reduce the risk of chronic diseases and support overall health."
+  },
+  {
+    "prompt": "How can I increase my calcium intake without dairy?",
+    "response": "Non-dairy calcium sources include leafy greens (kale, collards), fortified plant milks, canned fish with bones (sardines, salmon), tofu, almonds, and tahini. Many foods are also fortified with calcium. Vitamin D helps with calcium absorption."
+  },
+  {
+    "prompt": "What's the best pre-workout snack?",
+    "response": "Good pre-workout snacks combine easily digestible carbs with a small amount of protein. Examples include a banana with nut butter, Greek yogurt with berries, or whole grain toast with avocado. Eat 30-60 minutes before exercise and stay hydrated."
+  },
+  {
+    "prompt": "How do I meal prep effectively?",
+    "response": "Start by planning meals for the week, choose recipes with overlapping ingredients, batch cook grains and proteins, prep vegetables in advance, and invest in quality storage containers. Start small with 2-3 days of prep and gradually increase as you develop the habit."
+  },
+  {
+    "prompt": "What are the benefits of omega-3 fatty acids?",
+    "response": "Omega-3s support heart health, brain function, and may reduce inflammation. The best sources are fatty fish (salmon, mackerel, sardines), walnuts, flaxseeds, and chia seeds. If you don't eat fish regularly, consider talking to your healthcare provider about supplementation."
+  },
+  {
+    "prompt": "Can I get enough protein on a vegetarian diet?",
+    "response": "Yes, vegetarians can easily meet protein needs through legumes, quinoa, nuts, seeds, eggs, dairy, and soy products. Combine different protein sources throughout the day to ensure all essential amino acids. Focus on variety and adequate calorie intake."
+  },
+  {
+    "prompt": "What's the healthiest way to cook vegetables?",
+    "response": "Steaming, roasting, and stir-frying preserve the most nutrients while enhancing flavor. Avoid boiling for long periods as it can leach water-soluble vitamins. Adding a small amount of healthy fat can increase absorption of fat-soluble vitamins A, D, E, and K."
+  },
+  {
+    "prompt": "How do I read nutrition labels effectively?",
+    "response": "Focus on serving size first, then check calories, saturated fat, sodium, and added sugars (aim to limit these). Look for fiber, protein, vitamins, and minerals (aim for more of these). The ingredient list shows items by weight - avoid products where sugar or unhealthy fats are among the first few ingredients."
+  },
+  {
+    "prompt": "What's the relationship between diet and mental health?",
+    "response": "Diet significantly impacts mental health. Nutrient-rich foods support neurotransmitter production and reduce inflammation. The gut-brain connection means gut health affects mood. Focus on whole foods, omega-3s, and limit processed foods and excessive sugar for optimal mental well-being."
+  },
+  {
+    "prompt": "How can I reduce food waste while eating healthy?",
+    "response": "Plan meals around perishable items, store produce properly, use frozen fruits and vegetables, repurpose leftovers creatively, and compost scraps when possible. Buy only what you need and check expiration dates regularly. Frozen and canned options can be just as nutritious as fresh."
+  },
+  {
+    "prompt": "What are the best foods for heart health?",
+    "response": "Heart-healthy foods include fatty fish, nuts, seeds, whole grains, leafy greens, berries, avocados, and olive oil. These foods are rich in omega-3s, fiber, antioxidants, and healthy fats. Limit processed foods, excess sodium, and saturated fats for optimal heart health."
+  }
+]
